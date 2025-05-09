@@ -5,6 +5,7 @@ import com.flagexplorer.exception.CountryNotFoundException;
 import com.flagexplorer.model.Country;
 import com.flagexplorer.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,9 @@ public class CountryServiceImpl implements CountryService {
     private CountryApiClient countryApiClient;
 
     @Override
+    @Cacheable("countries")
     public List<Country> getAllCountries() {
+        System.out.println("Cache 1");
         return countryApiClient.fetchAllCountries();
     }
 
