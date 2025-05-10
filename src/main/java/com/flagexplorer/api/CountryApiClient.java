@@ -16,13 +16,10 @@ import java.util.Optional;
 public class CountryApiClient {
 
     private final WebClient webClient;
-    private final RestCountriesConfig config;
+    //private final RestCountriesConfig config;
 
-    public CountryApiClient(RestCountriesConfig config) {
-        this.config = config;
-        this.webClient = WebClient.builder()
-                .baseUrl(config.getBaseUrl())
-                .build();
+    public CountryApiClient(WebClient webClient) {
+        this.webClient = webClient;
     }
     public List<Country> fetchAllCountries() {
         return webClient.get()
