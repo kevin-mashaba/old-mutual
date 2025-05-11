@@ -1,1 +1,7 @@
-<p>home works!</p>
+<div class="grid">
+    <div *ngFor="let country of countries" (click)="goToDetail(country.name)" class="grid-item">
+      <img [src]="country.flagUrl" [alt]="country.name" class="flag-image" />
+      <p>{{ country.name }}</p>
+    </div>
+  </div>
+  
