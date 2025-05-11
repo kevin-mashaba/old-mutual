@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Country } from '../../model/Country';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CountryService } from '../../services/country.service';
 import { CommonModule } from '@angular/common';
 
@@ -15,7 +15,10 @@ export class CountryDetailComponent implements OnInit{
 
   country!: Country;
 
-  constructor(private route: ActivatedRoute, private service: CountryService, private cd: ChangeDetectorRef) {}
+  constructor(private route: ActivatedRoute, 
+              private service: CountryService,
+              private cd: ChangeDetectorRef,
+              private router: Router) {}
 
   ngOnInit(): void {
     const name = this.route.snapshot.paramMap.get('name');
@@ -25,6 +28,10 @@ export class CountryDetailComponent implements OnInit{
         this.cd.detectChanges();
       });
     }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/']); 
   }
 
 }
