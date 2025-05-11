@@ -52,6 +52,26 @@ import { Country } from '../model/Country';
       expect(req.request.method).toBe('GET');
       req.flush(dummyCountries);
     });
+
+    it('should fetch a country by name', () => {
+      const countryName = 'Kenya';
+      const dummyCountry: Country = {
+        name: 'Kenya',
+        capital: 'Nairobi',
+        population: 53000000,
+        code: 'KE',
+        flagUrl: 'https://flagcdn.com/ke.svg',
+      };
+    
+      service.getCountryByName(countryName).subscribe((country) => {
+        expect(country).toEqual(dummyCountry);
+      });
+    
+      const req = httpMock.expectOne(`http://localhost:8081/countries/${countryName}`);
+      expect(req.request.method).toBe('GET');
+      req.flush(dummyCountry);
+    });
+    
   });
   
   
