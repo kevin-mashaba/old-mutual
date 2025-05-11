@@ -3,29 +3,30 @@ package com.flagexplorer.service.impl;
 import com.flagexplorer.api.CountryApiClient;
 import com.flagexplorer.exception.CountryNotFoundException;
 import com.flagexplorer.model.Country;
-import com.flagexplorer.service.impl.CountryServiceImpl;
+import com.flagexplorer.service.CountryService;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cache.annotation.EnableCaching;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@EnableCaching
+@SpringBootTest
 public class CountryServiceTest {
 
-    @Mock
+    @MockBean
     private CountryApiClient countryApiClient;
 
 
-    @InjectMocks
-    private CountryServiceImpl countryService;
+    @Autowired
+    private CountryService countryService;
 
     @Test
     void shouldReturnAllCountriesFromApiClient() {
@@ -36,10 +37,14 @@ public class CountryServiceTest {
 
         when(countryApiClient.fetchAllCountries()).thenReturn(expected);
 
-        List<Country> result = countryService.getAllCountries();
+        List<Country> firstCall = countryService.getAllCountries();
+        assertEquals(2, firstCall.size());
+        assertEquals("KE", firstCall.get(0).code());
 
-        assertEquals(2, result.size());
-        assertEquals("KE", result.get(0).code());
+        List<Country> secondCall = countryService.getAllCountries();
+        assertEquals(2, secondCall.size());
+
+        verify(countryApiClient, times(1)).fetchAllCountries();
     }
 
     @Test

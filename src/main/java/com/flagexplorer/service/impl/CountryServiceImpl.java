@@ -19,7 +19,6 @@ public class CountryServiceImpl implements CountryService {
     @Override
     @Cacheable("countries")
     public List<Country> getAllCountries() {
-        System.out.println("Cache 1");
         return countryApiClient.fetchAllCountries();
     }
 
