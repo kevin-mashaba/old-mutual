@@ -1,6 +1,4 @@
 <div *ngIf="loading">Loading countries...</div>
-<button (click)="goToDetail('Philippines')">Go to Philippines</button>
-
 <div class="grid" *ngIf="!loading">
     <div *ngFor="let country of countries" (click)="goToDetail(country.name)" class="grid-item">
       <img [src]="country.flagUrl" [alt]="country.name" class="flag-image"/>
