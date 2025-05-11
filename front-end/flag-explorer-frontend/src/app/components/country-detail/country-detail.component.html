@@ -1,3 +1,4 @@
+<div *ngIf="loading">Loading country...</div>
 <div *ngIf="country">
     <img [src]="country.flagUrl" [alt]="country.name" />
     <h2>{{ country.name }}</h2>

@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 export class CountryDetailComponent implements OnInit{
 
   country!: Country;
+  loading = false;
 
   constructor(private route: ActivatedRoute, 
               private service: CountryService,
@@ -21,11 +22,13 @@ export class CountryDetailComponent implements OnInit{
               private router: Router) {}
 
   ngOnInit(): void {
+    this.loading = true;
     const name = this.route.snapshot.paramMap.get('name');
     if (name) {
       this.service.getCountryByName(name).subscribe((data) => {
         this.country = data;
         this.cd.detectChanges();
+        this.loading = false;
       });
     }
   }
