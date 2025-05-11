@@ -1,8 +1,9 @@
-package com.flagexplorer.service;
+package com.flagexplorer.service.impl;
 
 import com.flagexplorer.api.CountryApiClient;
 import com.flagexplorer.exception.CountryNotFoundException;
 import com.flagexplorer.model.Country;
+import com.flagexplorer.service.impl.CountryServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,7 +25,7 @@ public class CountryServiceTest {
 
 
     @InjectMocks
-    private CountryService countryService;
+    private CountryServiceImpl countryService;
 
     @Test
     void shouldReturnAllCountriesFromApiClient() {
