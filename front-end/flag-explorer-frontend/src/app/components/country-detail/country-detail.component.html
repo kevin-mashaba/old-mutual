@@ -1,1 +1,7 @@
-<p>country-detail works!</p>
+<div *ngIf="country">
+    <img [src]="country.flagUrl" [alt]="country.name" />
+    <h2>{{ country.name }}</h2>
+    <p><strong>Capital:</strong> {{ country.capital }}</p>
+    <p><strong>Population:</strong> {{ country.population | number }}</p>
+  </div>
+  
